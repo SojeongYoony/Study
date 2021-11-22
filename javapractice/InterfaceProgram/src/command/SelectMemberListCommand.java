@@ -18,7 +18,7 @@ public class SelectMemberListCommand implements MemberService {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		List<Member> list = MemberDAO.getInstance().selectAllMember();
+		List<Member> list = MemberDAO.getInstance().selectMemberList();
 		
 		JSONArray members = new JSONArray();
 		for (Member member : list) {

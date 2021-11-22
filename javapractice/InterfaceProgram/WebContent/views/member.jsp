@@ -40,7 +40,6 @@
 		}
 	</style>
 	<script>
-
 	</script>
 
 
@@ -59,7 +58,6 @@
 				dataType: 'json',
 				 success: function(members){
 					
-					$('#member_list').empty();
 					
 					$.each(members, function(i, member){
 						if (members.length == 0) {
@@ -68,6 +66,7 @@
 			                   .appendTo('#member_list');
 			                } else { 
 			                	
+							$('#member_list').empty();
 			                   $.each(members, function(i, member){
 			                      $('<tr>')
 			                      .append($('<td>').text(member.no))
@@ -91,6 +90,11 @@
 	<%-- ---------- fnInsertMember() ---------- --%>	
 		function fnInsertMember(){
 			$('#insert_btn').on('click', function(){
+				if( $('#no').val().length < 6 || isNaN($('#no').val())) {
+					alert('회원번호는 6자리 숫자입니다.');
+					return;
+				}
+				
 				$.ajax({
 					url: '/InterfaceProgram/insertMember.do',
 					type: 'post',
@@ -101,14 +105,15 @@
 						fnSelectMemberList();
 					},
 					error: function(xhr){
-						if(xhr.status == 1111) {
+						if(xhr.status == 2001 || xhr.status == 2002 || xhr.status == 2003) {
 							alert(xhr.responseText);
 						}
+							
 					}// end error
 					
-				}) // end ajax
+				}); // end ajax
 				
-			}) // end click event
+			}); // end click event
 		} // end fnInsert
 		
 		
@@ -123,17 +128,16 @@
 		function fnDeleteMember(){
 			$('body').on('click', '.delete_btn', function(){
 				
-				if(confirm('회원번호 '+ no +'회원의 정보를 삭제할까요?')) {
+				if(confirm('회원번호 '+ $(this).prev().val() +'회원의 정보를 삭제할까요?')) {
 					$.ajax({
 						url: '/InterfaceProgram/deleteMember.do',
 						type: 'get',
 						data: 'no=' + $(this).prev().val(),
 						dataType: 'json',
-						success: function(){
+						success: function(obj){
 							if(obj.result){
-								alert('삭제성공');
+								alert('회원번호' + $(this).prev().val() +'회원의 정보가 삭제되었습니다.');
 								fnSelectMemberList();
-
 							} else {
 								alert('삭제실패');
 							}
