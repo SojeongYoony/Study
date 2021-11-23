@@ -1,0 +1,46 @@
+	
+	
+	
+	Exceptions
+	
+	NullPointerException(java.lang.NullPointerException) 
+	 객체 참조가 없는 상태일 때 발생
+	 객체가 없는 상태에서 객체를 사용하려 하면 발생하는 예외.
+	
+	NumberFormatException(java.lang.NumberFormatException)
+	숫자로 변환할 수 없는 문자열이 포함되어 있으면 발생.
+	
+	ArrayIndexOutOfBoundsException
+	배열에서 인덱스 범위를 초과하여 사용할 때 발생.
+	
+	ClassCastException
+	억지로 형변환 할때 발생.
+	
+	ArithmeticException
+	산술연산 에러. 어떤 수를 0으로 나눌 때 발생함.
+	
+	
+	멀티 catch
+	자바 7부터 하나의 catch 블록에서 여러 개의 예외를 처리할 수 있는 기능이 추가되었습니다.
+	
+	try{
+	  // 예외 1 발생위치 (혹은 예외 3 발생위치)
+	  // 예외 2 발생위치
+	}
+	catch( 예외 1 | 예외 3  e) // | 는 or 로 보면 된다. 예외 1 혹은 예외 3이 발생하면
+	해당한 catch 블록에서 처리하게 된다.
+	{
+	  예외 처리
+	}
+	catch( 예외2 e)
+	{
+	  예외 처리
+	}
+
+
+
+	
+	사용자 정의 예외와 예외 발생
+	사용자 정의 예외 클래스란 개발자가 직접 정의하여 만드는 예외를 말합니다. 
+	일반 예외(Checked Exceptino)나 실행 예외(RuntimeException, UnChecked Exception) 중 하나로 만들 수 있습니다. 
+	전자는 Exception을 상속하면 되고, 후자는 RuntimeException을 상속하면 됩니다.
