@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.member">	<!-- package.filename -->
+
+	<!-- select all members list -->
+	<select id="memberList" resultType="dto.Member">	<!-- package.Class -->
+		SELECT no, name, age, birthday, regdate
+		  FROM member
+	</select>
+	
+	<!-- insert member -->
+	<insert id="insertMember"	parameterType="dto.Member">
+		INSERT INTO member
+		VALUES (#{no}, #{name}, #{age}, #{birthday}, SYSDATE)
+	</insert>
+	
+
+	<!-- delete member -->
+	<delete id="deleteMember" parameterType="String">
+		DELETE
+		  FROM member
+		 WHERE no = #{no}
+	</delete>
+	
+	<!-- for checking duplicate -->
+	<select id="selectOneMember" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		  FROM member
+		 WHERE no = #{no}
+	</select>
+
+
+
+</mapper>

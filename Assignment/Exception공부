@@ -1,0 +1,41 @@
+	
+	참고 
+	https://stackify.com/types-of-exceptions-java/
+	
+	NullPointerException(java.lang.NullPointerException) 
+	 객체 참조가 없는 상태일 때 발생
+	 객체가 없는 상태에서 객체를 사용하려 하면 발생하는 예외.
+	
+	NumberFormatException(java.lang.NumberFormatException)
+	숫자로 변환할 수 없는 문자열이 포함되어 있으면 발생.
+	
+	PersistenceException
+    Mybatis에서 DB오류나면 발생  : 동일한 데이터를 넘겨도 발생하고, column값에 맞지 않아도 발생함. mapper가 맞지 않거나해도 오류
+
+	Exception
+	모든 예외처리를 했지만, 간혹 예기치 못한 예외가 발생하는 경우 사용
+	
+	ArrayIndexOutOfBoundsException
+	배열에서 인덱스 범위를 초과하여 사용할 때 발생.
+	
+	ClassCastException
+	억지로 형변환 할때 발생.
+	
+	ArithmeticException
+	산술연산 에러. 어떤 수를 0으로 나눌 때 발생함.
+	
+	IOException
+	input, output exception 
+	
+	
+	사용자 정의 예외와 예외 발생
+	사용자 정의 예외 클래스란 개발자가 직접 정의하여 만드는 예외를 말합니다. 
+	일반 예외(Checked Exceptino)나 실행 예외(RuntimeException, UnChecked Exception) 중 하나로 만들 수 있습니다. 
+	전자는 Exception을 상속하면 되고, 후자는 RuntimeException을 상속하면 됩니다.
+	
+	- Exception을 직접만들어 사용할 수 있음
+	- throw에 메세지를 넣고 catch에 getMessage()하면 해당 메세지를 받아옴 
+	- Exception안에 if 조건을 줘서 message를 다르게 하는 방법도 있을 것 같은데 아직 test는 못 해봄
+	
+	
+	
