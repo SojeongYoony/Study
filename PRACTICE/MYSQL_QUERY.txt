@@ -1,0 +1,90 @@
+   SELECT M.M_NO, M.ID, M.PW, M.NAME, M.EMAIL, M.BIRTHDAY, M.PHONE, M.GENDER, M.STATE, P.ID, P.P_CONTENT, P.P_ORIGIN, P.P_SAVED, P.P_PATH
+        FROM MEMBER M
+        right outer join PROFILE p
+		on m.id= p.id
+        where M.ID = 'admin' AND M.PW = '4E8F01B25F10540F5DA388AED5FBC2FF83034EF1F74680C8D6A8842191E91FBC' AND M.STATE =0;
+        
+        
+           	SELECT B.B_NO, B.ID, B.CONTENT, B.IP, B.LOCATION, B.ORIGIN, B.SAVED, B.LIKES, B.CREATED, B.PATH, B.MODIFIED, B.STATE,
+   	       P.ID, P.P_ORIGIN, P.P_SAVED, P.P_PATH,
+   	       L.LIKE_NO, L.LIKE_CHECK, L.LIKE_DATE
+   	 FROM BOARD B LEFT JOIN  PROFILE P
+       ON  B.ID = P.ID
+     LEFT JOIN  LIKES L
+   	   ON B.ID = L.ID
+    WHERE STATE = 0
+    ORDER BY b.B_NO DESC;
+    
+    
+    
+    
+    	SELECT  B.B_NO, B.ID, B.CONTENT, B.IP, B.LOCATION, B.ORIGIN, B.SAVED, B.LIKES, B.CREATED, B.PATH, B.MODIFIED, B.STATE, P.ID, P.P_ORIGIN, P.P_SAVED, P.P_PATH, L.b_NO, L.LIKE_NO, L.LIKE_CHECK, L.LIKE_DATE
+		 FROM BOARD B LEFT JOIN  PROFILE P
+           ON  B.ID = P.ID
+         LEFT join  LIKES L
+   	       ON B.ID = L.ID
+	    WHERE B.B_NO = 1
+	       AND B.STATE = 0;
+           
+           
+           
+           
+               SELECT COUNT(B_NO)
+ 		  FROM LIKES
+ 		 WHERE ID IN ((SELECT ID
+                         FROM LIKES
+                        WHERE  ID in ((  SELECT L.ID
+                                     FROM BOARD B RIGHT JOIN LIKES L
+                                       ON B.B_NO = L.B_NO
+                                    WHERE B.B_NO = 1  ))
+                                     AND B_NO = 1))
+         AND ID = 'scott' and B_NO = 1;
+         
+		SELECT B.B_NO, B.ID, B.CONTENT, B.IP, B.LOCATION, B.ORIGIN, B.SAVED, B.LIKES, B.CREATED, B.PATH, B.MODIFIED, B.STATE, P.ID, P.P_ORIGIN, P.P_SAVED, P.P_PATH
+   	      FROM BOARD B LEFT JOIN PROFILE P
+   	        ON B.ID = P.ID 
+   	     WHERE UPPER(B.ID) LIKE '%' || UPPER(TRIM('s')) || '%'
+   	        OR UPPER(B.CONTENT) LIKE '%' ||  UPPER(TRIM('s')) || '%'
+   	        OR B.LOCATION LIKE '%' || TRIM('s') || '%'
+   	     ORDER BY B.B_NO DESC;
+         
+         		SELECT B.B_NO, B.CONTENT, B.IP, B.LOCATION, B.ORIGIN, B.SAVED, B.LIKES, B.CREATED, B.PATH, B.MODIFIED, B.STATE, P.ID, P.P_ORIGIN, P.P_SAVED, P.P_PATH
+          FROM BOARD B
+         RIGHT JOIN PROFILE P
+            ON B.ID =  P.ID
+         WHERE P.ID = 'scott'
+         ORDER BY B.B_NO DESC;
+         
+         
+         
+         SELECT R.R_NO, R.ID, R.B_NO, R.R_CONTENT, R.R_LIKES, R.R_CREATED, R.R_MODIFIED, R.STATE, R.DEPTH, R.GROUPNO, R.GROUPORD, P.P_ORIGIN, P.P_SAVED, P.P_PATH
+		  from PROFILE p left join REPLY R
+	        on P.ID = R.ID
+	       where R.B_NO = 1;
+           
+           		SELECT B.RN, B.R_NO, B.ID, B.B_NO, B.R_CONTENT, B.R_LIKES, B.R_CREATED, B.R_MODIFIED, B.STATE, B.DEPTH, B.GROUPNO, B.GROUPORD, B.P_ORIGIN, B.P_SAVED, B.P_PATH
+		  FROM (SELECT @ROWNUM := @rownum +1 AS RN, A.R_NO, A.ID, A.B_NO, A.R_CONTENT, A.R_LIKES, A.R_CREATED, A.R_MODIFIED, A.STATE, A.DEPTH, A.GROUPNO, A.GROUPORD, A.P_ORIGIN, A.P_SAVED, A.P_PATH
+		          FROM (SELECT R.R_NO 
+		          			 , R.ID 
+		          			 , R.B_NO 
+		          			 , R.R_CONTENT 
+		          			 , R.R_LIKES
+		          			 , R.R_CREATED 
+		          			 , R.R_MODIFIED
+		          			 , R.STATE 
+		          			 , R.DEPTH 
+		          			 , R.GROUPNO 
+		          			 , R.GROUPORD 
+		          			 , P.P_ORIGIN 
+		          			 , P.P_SAVED 
+		          			 , P.P_PATH 
+		                  FROM PROFILE P left join REPLY R
+		                 on P.ID = R.Id
+		                   where R.B_NO = 1
+		                   AND R.STATE = 0
+		                 ORDER BY R.R_CREATED DESC, GROUPORD ASC) A) B
+		 WHERE B.RN BETWEEN 1 AND 100;
+           
+           
+           
+         
